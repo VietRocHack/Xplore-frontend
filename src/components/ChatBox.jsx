@@ -83,25 +83,31 @@ export default function ChatBox({ messages, setMessages, vapi, connected }) {
   }
 
   return (
-    <div className="w-full h-screen flex flex-col justify-between bg-gray-900 text-white rounded-lg shadow-lg p-4 overflow-y-scroll">
-      {/* Chat History */}
-      <div className="flex-grow overflow-y-auto p-3 space-y-4">
-        {messages.map((message, index) => (
-          <ChatField
-            key={index}
-            isFromUser={message.isFromUser}
-            url={message.imageSrc}
-            text={message.textMessage}
-          ></ChatField>
-        ))}
+    <div className="w-full h-screen flex flex-col justify-between bg-black text-white rounded-lg shadow-lg p-4 overflow-y-scroll">
+      <div className="m-1 bg-gray-600 h-16 flex justify-center items-center rounded-lg">
+        Step-by-step Xplore with our ChatBot
       </div>
-      {isNewMessage && (
-        <ConfirmationBox
-          url={newMessage.imageSrc}
-          accept={acceptNewMessage}
-          reject={rejectNewMessage}
-        />
-      )}
+
+      <div className="m-1 flex-grow overflow-y-auto rounded-lg">
+        {/* Chat History */}
+        <div className="p-3 pt-6 space-y-4">
+          {messages.map((message, index) => (
+            <ChatField
+              key={index}
+              isFromUser={message.isFromUser}
+              url={message.imageSrc}
+              text={message.textMessage}
+            ></ChatField>
+          ))}
+        </div>
+        {isNewMessage && (
+          <ConfirmationBox
+            url={newMessage.imageSrc}
+            accept={acceptNewMessage}
+            reject={rejectNewMessage}
+          />
+        )}
+      </div>
     </div>
   );
 }

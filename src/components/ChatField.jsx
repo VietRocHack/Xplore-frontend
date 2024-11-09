@@ -14,8 +14,8 @@ export default function ChatField({ index, isFromUser, text, url }) {
           <FaUserCircle className="text-3xl text-blue-400 mr-3" />
         )}
         <div
-          className={`max-w-xs p-3 rounded-lg ${
-            isFromUser ? "bg-blue-600 text-white" : "bg-gray-800 text-gray-200"
+          className={`max-w-[70%] p-3 break-words rounded-3xl shadow-sm ${
+            isFromUser ? "bg-blue-500 text-white ml-auto rounded-br-md" : "bg-slate-700 text-white mr-auto rounded-bl-md"
           }`}
         >
           {url ? ( // If there is an image URL, render the image
