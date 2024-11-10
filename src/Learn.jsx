@@ -87,6 +87,37 @@ const Learn = () => {
       }
     });
 
+    // vapiInstance.on("message", async (message) => {
+    //   console.log("Message received:");
+    //   if (message.type === "transcript" && message.transcriptType === "final") {
+    //     const chatMessage = {
+    //       isFromUser: message.role === "user",
+    //       textMessage: message.transcript,
+    //       isImage: false,
+    //       imageSrc: null,
+    //     };
+    //     if (
+    //       chatMessage.isFromUser &&
+    //       chatMessage.textMessage.toLowerCase().includes("help")
+    //     ) {
+    //       const userPrompt = chatMessage.textMessage;
+    //       console.log(userPrompt);
+    //       try {
+    //         await fetch("http://127.0.0.1:8000/help", {
+    //           method: "POST",
+    //           headers: {
+    //             "Content-Type": "application/json",
+    //           },
+    //           body: JSON.stringify({ text: userPrompt }),
+    //         });
+    //       } catch (error) {
+    //         console.error("Error:", error);
+    //       }
+    //     }
+    //     setChatHistory((prev) => [...prev, chatMessage]);
+    //   }
+    // });
+
     vapiInstance.on("error", (error) => {
       console.error(error);
 
@@ -113,8 +144,12 @@ const Learn = () => {
           isChatVisible ? "w-2/3" : "w-full"
         } flex items-center justify-center mt-8 mb-8 transition-all duration-500`}
       >
-        <div className="flex flex-col items-center justify-center w-full h-full m-8 space-y-32 fade-in fade-in-delay-1">
-          <div className="flex flex-col items-center justify-center w-full h-[500px] mt-8 space-y-32 relative fade-in fade-in-delay-2">
+        <div className="container fade-in fade-in-delay-1">
+          <div
+            className={`${
+              isVoiceMode ? "voice_mode_container" : "non_voice_mode_container"
+            } main_section_container fade-in fade-in-delay-2`}
+          >
             <div className="flex flex-col items-center justify-center h-full w-full">
               {isVoiceMode ? (
                 <div className="bg-purple-500 rounded-[15px] h-full flex items-center justify-center fade-in fade-in-delay-3">
