@@ -1,5 +1,6 @@
 .generation_text {
   /* height: 40px; */
+  max-width: 1100px;
   font-size: 1.5rem; /* text-lg */
   font-weight: 500; /* font-medium */
   color: #646cff; /* text-indigo-500 */
@@ -13,16 +14,19 @@
   padding: 0 2rem; /* Add padding for spacing on the sides */
 }
 .navButton {
-  background: transparent;
-  /* border: 2px solid #646cff; */
+  background: #b185c9;
   border-radius: 50%;
   cursor: pointer;
-  width: 100px; /* Adjust size as needed */
-  height: 100px;
+  width: 90px;
+  height: 90px;
+  flex-shrink: 0;
   display: flex;
   align-items: center;
   justify-content: center;
   padding: 5px;
+}
+.navButton:hover {
+  transform: scale(1.1); /* Slight enlargement on hover */
 }
 .navButton img {
   width: 100%;
