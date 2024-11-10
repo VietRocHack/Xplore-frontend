@@ -99,6 +99,18 @@ button:focus-visible {
   animation: smoothFade 10s infinite;
 }
 /* TODO: FIX THIS*/
+@keyframes fadeInOut5s {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+.fade-in-out-5s {
+  animation: fadeInOut5s 2.5s infinite alternate;
+}
 
 .fade-in {
   animation: fadeIn 1s ease-out forwards;
