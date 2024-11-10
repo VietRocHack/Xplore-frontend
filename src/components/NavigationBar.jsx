@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import CenterButton from "./CenterButton";
 import Mute from "./Mute";
 import NavItem from "./NavItem";
-import { useNavigate } from "react-router-dom";
+import Play from "./Play";
 
 // eslint-disable-next-line react/prop-types
 const NavigationBar = ({
@@ -12,24 +12,24 @@ const NavigationBar = ({
   connected,
   endCall,
 }) => {
-  const navigate = useNavigate()
   return (
     <nav className="flex justify-center w-full">
       <div className="bg-gray-900 rounded-3xl py-4 px-3 flex justify-around items-center w-full">
-        <NavItem icon="home" label="Home" onClick={() => navigate('/')}/>
+        <NavItem icon="back" label="Back" />
         <Mute
           handleMuteToggle={handleMuteToggle}
           isMuted={isMuted}
         />
-        <CenterButton
+        {/* <CenterButton
           startCallInline={startCallInline}
           endCall={endCall}
           label="Call Xplore"
           isMuted={isMuted}
           connected={connected}
-        />
-        <NavItem icon="clock" label="History" />
-        <NavItem icon="user" label="Profile" />
+        /> */}
+        
+        {connected ? <NavItem icon="stop" label="Stop" onClick={endCall} /> : <NavItem icon="play" label="Play" onClick={startCallInline} />}
+        <NavItem icon="next" label="Next" />
       </div>
     </nav>
   );
