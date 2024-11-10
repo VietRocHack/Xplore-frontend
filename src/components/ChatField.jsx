@@ -1,4 +1,5 @@
 import { FaUserCircle } from "react-icons/fa"; // For the bot avatar icon
+import styles from "./page.module.css";
 
 /* eslint-disable react/prop-types */
 export default function ChatField({ index, isFromUser, text, url }) {
@@ -6,25 +7,20 @@ export default function ChatField({ index, isFromUser, text, url }) {
     <>
       <div
         key={index}
-        className={`flex items-start ${
-          isFromUser ? "justify-end" : "justify-start"
+        className={`${styles.chat_container} ${
+          isFromUser ? styles.chat_container_end : styles.chat_container_start
         }`}
       >
-        {!isFromUser && (
-          <FaUserCircle className="text-3xl text-blue-400 mr-3" />
-        )}
+        {!isFromUser && <FaUserCircle className={styles.user_icon} />}
         <div
-          className={`max-w-[70%] p-3 break-words rounded-3xl shadow-sm ${
-            isFromUser ? "bg-blue-500 text-white ml-auto rounded-br-md" : "bg-slate-700 text-white mr-auto rounded-bl-md"
+          className={`${styles.message_container} ${
+            isFromUser ? styles.message_from_user : styles.message_from_others
           }`}
         >
           {url ? ( // If there is an image URL, render the image
-            <img
-              src={url}
-              className="w-80 transition-transform hover:scale-105"
-            />
+            <img src={url} className={styles.message_image} />
           ) : (
-            <p className="text-2xl">{text}</p> // Otherwise, render the text message
+            <p className={styles.message_text}>{text}</p> // Otherwise, render the text message
           )}
         </div>
       </div>

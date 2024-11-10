@@ -1,0 +1,78 @@
+.explore_banner {
+  margin: 0.25rem; /* Equivalent to m-1 */
+  background-color: #4b5563; /* Equivalent to bg-gray-600 */
+  height: 4rem; /* Equivalent to h-16 */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 0.5rem; /* Equivalent to rounded-lg */
+  font-size: large;
+}
+.user_icon {
+  font-size: 1.875rem; /* Equivalent to text-3xl */
+  color: #60a5fa; /* Equivalent to text-blue-400 */
+  margin-right: 0.75rem; /* Equivalent to mr-3 */
+  align-self: flex-end;
+}
+.messages_container {
+  padding: 0.75rem; /* Equivalent to p-3 */
+  padding-top: 1.5rem; /* Equivalent to pt-6 */
+  padding-left: 0;
+  gap: 0.2rem; /* Equivalent to space-y-4 */
+  display: flex;
+  flex-direction: column;
+}
+.user_icon {
+  font-size: 1.875rem; /* Equivalent to text-3xl */
+  color: #60a5fa; /* Equivalent to text-blue-400 */
+  margin-right: 0.75rem; /* Equivalent to mr-3 */
+  align-self: self-end;
+}
+
+.chat_container {
+  display: flex;
+  align-items: start;
+}
+
+.chat_container-end {
+  justify-content: flex-end;
+}
+
+.chat_container_start {
+  justify-content: flex-start;
+}
+
+.message_container {
+  max-width: 70%;
+  padding: 0.75rem; /* Equivalent to p-3 */
+  word-break: break-word;
+  border-radius: 1.5rem; /* Equivalent to rounded-3xl */
+  box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.1); /* Equivalent to shadow-sm */
+}
+
+.message_from_user {
+  background-color: #3b82f6; /* Equivalent to bg-blue-500 */
+  color: #ffffff; /* Equivalent to text-white */
+  margin-left: auto; /* Equivalent to ml-auto */
+  border-bottom-right-radius: 0.25rem; /* Equivalent to rounded-br-md */
+}
+
+.message_from_others {
+  background-color: #374151; /* Equivalent to bg-slate-700 */
+  color: #ffffff; /* Equivalent to text-white */
+  margin-right: auto; /* Equivalent to mr-auto */
+  border-bottom-left-radius: 0.25rem; /* Equivalent to rounded-bl-md */
+}
+
+.message_image {
+  width: 20rem; /* Equivalent to w-80 */
+  transition: transform 0.3s ease;
+}
+
+.message_image:hover {
+  transform: scale(1.05); /* Equivalent to hover:scale-105 */
+}
+
+.message_text {
+  font-size: 1.5rem; /* Equivalent to text-2xl */
+}

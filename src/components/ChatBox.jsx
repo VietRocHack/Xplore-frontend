@@ -4,6 +4,7 @@ import.meta.env.VITE_SOCKET_URL;
 import ChatMessage from "../classes/ChatMessage";
 import ChatField from "./ChatField";
 import ConfirmationBox from "./ConfirmationBox";
+import styles from "./page.module.css";
 // import { IoSend } from 'react-icons/io5'; // Send icon for input
 
 console.log(import.meta.env.VITE_SOCKET_URL);
@@ -84,20 +85,20 @@ export default function ChatBox({ messages, setMessages, vapi, connected }) {
 
   return (
     <div className="w-full h-screen flex flex-col justify-between bg-black text-white rounded-lg shadow-lg p-4 overflow-y-scroll">
-      <div className="m-1 bg-gray-600 h-16 flex justify-center items-center rounded-lg">
+      <div className={styles.explore_banner}>
         Step-by-step Xplore with our ChatBot
       </div>
 
       <div className="m-1 flex-grow overflow-y-auto rounded-lg">
         {/* Chat History */}
-        <div className="p-3 pt-6 space-y-4">
+        <div className={styles.messages_container}>
           {messages.map((message, index) => (
             <ChatField
               key={index}
               isFromUser={message.isFromUser}
               url={message.imageSrc}
               text={message.textMessage}
-            ></ChatField>
+            />
           ))}
         </div>
         {isNewMessage && (
