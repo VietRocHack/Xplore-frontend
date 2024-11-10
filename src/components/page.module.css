@@ -11,7 +11,7 @@
 .user_icon {
   font-size: 1.875rem; /* Equivalent to text-3xl */
   color: #60a5fa; /* Equivalent to text-blue-400 */
-  margin-right: 0.75rem; /* Equivalent to mr-3 */
+  margin-right: 0.7rem; /* Equivalent to mr-3 */
   align-self: flex-end;
 }
 .messages_container {

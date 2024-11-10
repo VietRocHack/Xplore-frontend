@@ -68,3 +68,71 @@ button:focus-visible {
     background-color: #f9f9f9;
   }
 }
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+/* Smooth fade in and out */
+@keyframes smoothFade {
+  0%,
+  40% {
+    opacity: 0;
+  }
+  50%,
+  90% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+
+.fade_in_out {
+  animation: smoothFade 10s infinite;
+}
+/* TODO: FIX THIS*/
+
+.fade-in {
+  animation: fadeIn 1s ease-out forwards;
+  opacity: 0; /* Start hidden */
+}
+
+.fade-in-delay-1 {
+  animation-delay: 0.5s;
+}
+
+.fade-in-delay-2 {
+  animation-delay: 1s;
+}
+
+.fade-in-delay-3 {
+  animation-delay: 1.5s;
+}
+
+/* Initially off-screen */
+.chat-section-hidden {
+  transform: translateX(100%);
+  transition: transform 0.5s ease-out;
+}
+
+/* Slide in from the right */
+.chat-section-visible {
+  transform: translateX(0);
+  transition: transform 0.5s ease-out;
+}
+
+.main-section {
+  transition: width 0.5s ease;
+}
+
+.chat-section {
+  transition: width 0.5s ease, transform 0.5s ease;
+}

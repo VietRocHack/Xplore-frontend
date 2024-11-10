@@ -16,6 +16,13 @@ import Vapi from "@vapi-ai/web";
 import { VAPI_KEY } from "./utils";
 import ChatBox from "./components/ChatBox";
 import CircleButton from "./components/CircleButton";
+const quotes = [
+  "Unlock the door to endless discovery.",
+  "Every click is a step closer to wisdom.",
+  "Tap into your potential and let curiosity lead.",
+  "Your journey to knowledge begins here.",
+  "Empower yourself with every question you ask.",
+];
 
 const Learn = () => {
   const [vapi, setVapi] = useState(null);
@@ -24,6 +31,8 @@ const Learn = () => {
   const [connected, setConnected] = useState(false);
   const [isVoiceMode, setIsVoiceMode] = useState(false);
   const [isMuted, setIsMuted] = useState(false);
+  const [isChatVisible, setIsChatVisible] = useState(false); // New state for chat visibility
+  const [quoteIndex, setQuoteIndex] = useState(0); // Track current quote index
 
   const handleMuteToggle = () => {
     if (vapi) {
@@ -39,6 +48,7 @@ const Learn = () => {
   const startCallInline = () => {
     // vapi.start(assistantOptions); //from the website
     setIsVoiceMode(!isVoiceMode);
+    setIsChatVisible(true); // Show chat section
     vapi.start("4b6c564d-7931-4227-b2f3-cbafd3c263c1");
   };
 
@@ -88,48 +98,69 @@ const Learn = () => {
     };
   }, []);
 
+  useEffect(() => {
+    const quoteInterval = setInterval(() => {
+      setQuoteIndex((prevIndex) => (prevIndex + 1) % quotes.length);
+    }, 5000); // Change every 5 seconds
+
+    return () => clearInterval(quoteInterval); // Clear interval on component unmount
+  }, []);
+
   return (
     <div className="bg-gradient-to-b from-purple-900 to-indigo-900 min-h-screen flex">
-      <div className="w-2/3 flex items-center justify-center mt-8 mb-8">
-        <div className="flex flex-col items-center justify-center w-full h-full m-8 space-y-32">
-          <div className="flex flex-col items-center justify-center w-full h-[500px] mt-8 space-y-32 relative">
+      <div
+        className={`${
+          isChatVisible ? "w-2/3" : "w-full"
+        } flex items-center justify-center mt-8 mb-8 transition-all duration-500`}
+      >
+        <div className="flex flex-col items-center justify-center w-full h-full m-8 space-y-32 fade-in fade-in-delay-1">
+          <div className="flex flex-col items-center justify-center w-full h-[500px] mt-8 space-y-32 relative fade-in fade-in-delay-2">
             <div className="flex flex-col items-center justify-center h-full w-full">
               {isVoiceMode ? (
-                <div className="bg-purple-500 rounded-[15px] h-full flex items-center justify-center">
+                <div className="bg-purple-500 rounded-[15px] h-full flex items-center justify-center fade-in fade-in-delay-3">
                   <img
                     src={female2}
                     alt="AI Assistant Avatar"
-                    className="transition-transform h-full"
+                    className="transition-transform h-full fade-in fade-in-delay-1"
                   />
                 </div>
               ) : (
                 <>
-                  <div className="h-full flex items-center justify-center">
+                  <div className="h-full flex items-center justify-center fade-in fade-in-delay-2">
                     <CircleButton
                       startCallInline={startCallInline}
                       connected={connected}
                       endCall={endCall}
                     />
                   </div>
-                  <p className="text-blue-200 text-center mt-8 text-2xl opacity-75">
-                    Touch to empower your learning
+                  <p className="text-blue-200 text-center mt-8 text-2xl opacity-75 fade-in-out">
+                    {quotes[quoteIndex]}
                   </p>
                 </>
               )}
             </div>
           </div>
-          <NavigationBar
-            startCallInline={startCallInline}
-            endCall={endCall}
-            handleMuteToggle={handleMuteToggle}
-            isMuted={isMuted}
-            connected={connected}
-          />
+          {isChatVisible && (
+            <NavigationBar
+              startCallInline={startCallInline}
+              endCall={endCall}
+              handleMuteToggle={handleMuteToggle}
+              isMuted={isMuted}
+              connected={connected}
+              className="fade-in fade-in-delay-3"
+            />
+          )}
         </div>
       </div>
 
       {/* Right section: Placeholder for ChatBot (1/3 of the screen) */}
-      <div className="h-screen w-1/3 flex items-center justify-center bg-black">
+      <div
+        className={`h-screen ${
+          isChatVisible
+            ? "w-1/3 chat-section-visible"
+            : "w-0 chat-section-hidden"
+        } chat-section bg-black flex items-center justify-center`}
+      >
         {/* <p>ChatBot will be here</p> */}
         {/* <div>
             {chatHistory.length > 0
@@ -141,12 +172,14 @@ const Learn = () => {
                 ))
               : "No transcript available"}
           </div> */}
-        <ChatBox
-          messages={chatHistory}
-          setMessages={setChatHistory}
-          vapi={vapi}
-          connected={connected}
-        />
+        {isChatVisible && (
+          <ChatBox
+            messages={chatHistory}
+            setMessages={setChatHistory}
+            vapi={vapi}
+            connected={connected}
+          />
+        )}
       </div>
     </div>
   );
