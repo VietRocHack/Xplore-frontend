@@ -117,13 +117,13 @@
   justify-content: center;
   width: 100%;
   position: fixed;
-  bottom: -150px; /* Initially hidden */
-  transition: bottom 0.3s ease; /* Smooth transition */
+  bottom: 10px; /* Initially hidden */
+  transition: none; /* Smooth transition */
 }
 
-.navWrapper:hover .nav_center {
-  bottom: 10px; /* Slide up on hover */
-}
+/* .navWrapper:hover .nav_center {
+  bottom: 10px; 
+} */
 
 .nav_container {
   background-color: #1a202c;

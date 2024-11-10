@@ -183,3 +183,11 @@ button:focus-visible {
 .main_section_container > * + * {
   margin-top: 8rem; /* space-y-32 (128px between child elements) */
 }
+
+.fixed_text_container {
+  max-height: 90px; 
+  overflow-y: auto; 
+  padding: 1rem; 
+  border: 1px solid #ccc; 
+  border-radius: 8px; 
+}
