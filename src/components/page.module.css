@@ -76,3 +76,17 @@
 .message_text {
   font-size: 1.5rem; /* Equivalent to text-2xl */
 }
+.nav_center {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+}
+.nav_container {
+  background-color: #1a202c; /* Equivalent to Tailwind's bg-gray-900 */
+  border-radius: 1.5rem; /* Equivalent to Tailwind's rounded-3xl */
+  padding: 1rem 0.75rem; /* Equivalent to Tailwind's py-4 px-3 */
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  width: 100%;
+}

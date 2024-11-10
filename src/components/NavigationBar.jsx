@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import CenterButton from "./CenterButton";
 import Mute from "./Mute";
 import NavItem from "./NavItem";
+import styles from "./page.module.css";
 
 // eslint-disable-next-line react/prop-types
 const NavigationBar = ({
@@ -24,8 +25,8 @@ const NavigationBar = ({
   }
 
   return (
-    <nav className="flex justify-center w-full">
-      <div className="bg-gray-900 rounded-3xl py-4 px-3 flex justify-around items-center w-full">
+    <nav className={styles.nav_center}>
+      <div className={styles.nav_container}>
         <NavItem icon="back" label="Back" />
         <Mute
           handleMuteToggle={handleMuteToggle}
