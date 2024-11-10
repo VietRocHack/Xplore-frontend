@@ -11,7 +11,10 @@ export default function ChatField({ index, isFromUser, text, url }) {
         }`}
       >
         {!isFromUser && (
-          <FaUserCircle className="text-3xl text-blue-400 mr-3" />
+          // <FaUserCircle className="text-3xl text-blue-400 mr-3" />
+          <div className="bg-gradient-to-r from-blue-400 to-purple-400 p-2 rounded-full mr-3">
+            <FaUserCircle className="text-3xl text-white" />
+          </div>
         )}
         <div
           className={`max-w-[70%] p-3 break-words rounded-3xl shadow-sm ${

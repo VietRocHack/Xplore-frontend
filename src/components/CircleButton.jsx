@@ -3,11 +3,7 @@ import React from "react";
 const CircleButton = ({ startCallInline, connected, endCall }) => {
   const handleClick = () => {
     console.log("minhdz");
-    if (connected) {
-      endCall();
-    } else {
-      startCallInline();
-    }
+    {connected ? (endCall()) : (startCallInline())}
   };
   return (
     <div className="relative cursor-pointer" onClick={handleClick}>

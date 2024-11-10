@@ -15,7 +15,7 @@ const NavigationBar = ({
   const navigate = useNavigate()
   return (
     <nav className="flex justify-center w-full">
-      <div className="bg-gray-900 rounded-full py-4 px-3 flex justify-around items-center w-full">
+      <div className="bg-gray-900 rounded-3xl py-4 px-3 flex justify-around items-center w-full">
         <NavItem icon="home" label="Home" onClick={() => navigate('/')}/>
         <Mute
           handleMuteToggle={handleMuteToggle}
@@ -24,7 +24,7 @@ const NavigationBar = ({
         <CenterButton
           startCallInline={startCallInline}
           endCall={endCall}
-          label="Call TeachXR"
+          label="Call Xplore"
           isMuted={isMuted}
           connected={connected}
         />
