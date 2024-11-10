@@ -43,6 +43,7 @@ const Learn = () => {
   };
 
   const endCall = () => {
+    setIsVoiceMode(false);
     vapi.stop();
   };
 
