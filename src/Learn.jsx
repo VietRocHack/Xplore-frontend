@@ -62,6 +62,7 @@ const Learn = () => {
   const [quoteIndex, setQuoteIndex] = useState(0); // Track current quote index
   const [init, setInit] = useState(false);
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
+  const [helpSteps, setHelpSteps] = useState([]);
 
   // TODO: @VuDuc, you can start integrating from here
   const [isHelpQuestion, setIsHelpQuestion] = useState(true); // TODO: We mock data and set it to true for now. By default it is false.
@@ -78,12 +79,12 @@ const Learn = () => {
   // Remember to reset the array containing the steps before jumping in to the next "help" question
 
   const handleNext = () => {
-    setCurrentImageIndex((prevIndex) => (prevIndex + 1) % dataMock.length);
+    setCurrentImageIndex((prevIndex) => (prevIndex + 1) % helpSteps.length);
   };
 
   const handlePrevious = () => {
     setCurrentImageIndex((prevIndex) =>
-      prevIndex === 0 ? dataMock.length - 1 : prevIndex - 1
+      prevIndex === 0 ? helpSteps.length - 1 : prevIndex - 1
     );
   };
 
@@ -128,7 +129,7 @@ const Learn = () => {
       setConnected(false);
     });
 
-    vapiInstance.on("message", (message) => {
+    vapiInstance.on("message", async (message) => {
       console.log("Message received:");
       if (message.type === "transcript" && message.transcriptType === "final") {
         const chatMessage = {
@@ -137,40 +138,47 @@ const Learn = () => {
           isImage: false,
           imageSrc: null,
         };
+        if (
+          chatMessage.isFromUser &&
+          chatMessage.textMessage.toLowerCase().includes("help")
+        ) {
+          const userPrompt = chatMessage.textMessage;
+          console.log(userPrompt);
+          fetch("http://127.0.0.1:8000/help", {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({ text: userPrompt }),
+          })
+            .then((response) => response.json())
+            .then((response_json) => {
+              const analysis = response_json.analysis;
+              const image_src = response_json.image;
+
+              vapiInstance.send({
+                type: "add-message",
+                message: {
+                  role: "system",
+                  content:
+                    "Here is the next image analysis your friend is providing. Study this analysis clearly and provide the next steps using your instruction like above. Make it easy to understand so your friend will be able to understand and where to look at specifically. Keep it short on one or two steps at a time. Here is the image analysis: " +
+                    JSON.stringify(analysis),
+                },
+              });
+
+              setHelpSteps((prev) => [
+                ...prev,
+                { image: image_src, description: "Waiting for instruction" },
+              ]);
+              console.log(analysis);
+            })
+            .catch((error) => {
+              console.error("Error", error);
+            });
+        }
         setChatHistory((prev) => [...prev, chatMessage]);
       }
     });
-
-    // vapiInstance.on("message", async (message) => {
-    //   console.log("Message received:");
-    //   if (message.type === "transcript" && message.transcriptType === "final") {
-    //     const chatMessage = {
-    //       isFromUser: message.role === "user",
-    //       textMessage: message.transcript,
-    //       isImage: false,
-    //       imageSrc: null,
-    //     };
-    //     if (
-    //       chatMessage.isFromUser &&
-    //       chatMessage.textMessage.toLowerCase().includes("help")
-    //     ) {
-    //       const userPrompt = chatMessage.textMessage;
-    //       console.log(userPrompt);
-    //       try {
-    //         await fetch("http://127.0.0.1:8000/help", {
-    //           method: "POST",
-    //           headers: {
-    //             "Content-Type": "application/json",
-    //           },
-    //           body: JSON.stringify({ text: userPrompt }),
-    //         });
-    //       } catch (error) {
-    //         console.error("Error:", error);
-    //       }
-    //     }
-    //     setChatHistory((prev) => [...prev, chatMessage]);
-    //   }
-    // });
 
     // TODO
 
@@ -207,13 +215,13 @@ const Learn = () => {
             } main_section_container fade-in fade-in-delay-2`}
           >
             <div className={styles.main_content_wrapper}>
-              {isVoiceMode ? (
+              {isVoiceMode && helpSteps.length > 0 ? (
                 <>
                   <div
                     className={`${styles.image_container} fade-in fade-in-delay-3`}
                   >
                     <img
-                      src={dataMock[currentImageIndex].image}
+                      src={helpSteps[currentImageIndex].image}
                       alt="AI Assistant Avatar"
                       className="transition-transform h-full fade-in fade-in-delay-1"
                     />
@@ -229,7 +237,7 @@ const Learn = () => {
                           <img src={backIcon} alt="Back" />
                         </button>
 
-                        <p>{dataMock[currentImageIndex].description}</p>
+                        <p>{helpSteps[currentImageIndex].description}</p>
 
                         {/* Next button with SVG */}
                         <button
