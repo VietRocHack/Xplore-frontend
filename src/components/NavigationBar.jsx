@@ -19,29 +19,28 @@ const NavigationBar = ({
     startCallInline();
   };
 
-  // Once connected state updates to true, stop the loading indicator
   if (connected && isLoading) {
     setIsLoading(false);
   }
 
   return (
-    <nav className={styles.nav_center}>
-      <div className={styles.nav_container}>
-        <NavItem icon="back" label="Back" />
-        <Mute
-          handleMuteToggle={handleMuteToggle}
-          isMuted={isMuted}
-        />
-        <CenterButton
-          startCallInline={startCallInline}
-          endCall={endCall}
-          label="Call Xplore"
-          isMuted={isMuted}
-          connected={connected}
-        />        
-        <NavItem icon="next" label="Next" />
-      </div>
-    </nav>
+    <div className={styles.navWrapper}>
+      <div className={styles.navCue}></div> {/* Cue element */}
+      <nav className={styles.nav_center}>
+        <div className={styles.nav_container}>
+          {/* <NavItem icon="back" label="Back" /> */}
+          <Mute handleMuteToggle={handleMuteToggle} isMuted={isMuted} />
+          <CenterButton
+            startCallInline={startCallInline}
+            endCall={endCall}
+            label="Call Xplore"
+            isMuted={isMuted}
+            connected={connected}
+          />
+          {/* <NavItem icon="next" label="Next" /> */}
+        </div>
+      </nav>
+    </div>
   );
 };
 

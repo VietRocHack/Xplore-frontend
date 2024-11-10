@@ -31,6 +31,7 @@
 
 .chat_container {
   display: flex;
+  animation: fadeInUp 0.5s ease forwards;
   align-items: start;
 }
 
@@ -76,11 +77,6 @@
 .message_text {
   font-size: 1.5rem; /* Equivalent to text-2xl */
 }
-.nav_center {
-  display: flex;
-  justify-content: center;
-  width: 100%;
-}
 .nav_container {
   background-color: #1a202c; /* Equivalent to Tailwind's bg-gray-900 */
   border-radius: 1.5rem; /* Equivalent to Tailwind's rounded-3xl */
@@ -89,4 +85,63 @@
   justify-content: space-around;
   align-items: center;
   width: 100%;
+}
+.navWrapper {
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+  overflow: hidden;
+}
+
+.navCue {
+  width: 40px;
+  height: 10px;
+  background-color: #333;
+  border-radius: 5px;
+  cursor: pointer;
+  margin-bottom: 13px;
+  opacity: 0.4;
+  transition: opacity 0.3s;
+  background-color: #ffffff;
+}
+
+.navCue:hover {
+  opacity: 1;
+}
+
+.nav_center {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  position: fixed;
+  bottom: -150px; /* Initially hidden */
+  transition: bottom 0.3s ease; /* Smooth transition */
+}
+
+.navWrapper:hover .nav_center {
+  bottom: 10px; /* Slide up on hover */
+}
+
+.nav_container {
+  background-color: #1a202c;
+  border-radius: 1.5rem;
+  padding: 1rem 0.75rem;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  width: 450px; /* Set a fixed width */
+  margin: 0 auto; /* Center the container horizontally */
+}
+@keyframes fadeInUp {
+  0% {
+    opacity: 0;
+    transform: translateY(20px); /* Start 20px below */
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0); /* End in the original position */
+  }
 }

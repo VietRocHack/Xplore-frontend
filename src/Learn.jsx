@@ -10,6 +10,8 @@ import male4 from "./assets/male4.png";
 import male5 from "./assets/male5.png";
 import teacher from "./assets/teacher.png";
 import laufey from "./assets/laufey.gif";
+import chjlaucute from "./assets/chjlaucute.jpg";
+import cutevaichuong from "./assets/cutevaichuong.jpg";
 
 import { useState, useEffect } from "react";
 import NavigationBar from "./components/NavigationBar";
@@ -17,12 +19,36 @@ import Vapi from "@vapi-ai/web";
 import { VAPI_KEY } from "./utils";
 import ChatBox from "./components/ChatBox";
 import CircleButton from "./components/CircleButton";
+import styles from "./page.module.css";
+import backIcon from "/BackIcon.svg";
+import nextIcon from "/NextIcon.svg";
+import { data } from "autoprefixer";
+import { FaRProject } from "react-icons/fa";
+
+const fixText =
+  "isuem Lorem ipsum dolor sit amet, consectetur adipisicing elit. Incidunt quos itaque asperiores. Enim iure rerum sunt molestiae repellat veritatis exercitationem dolorem placeat deleniti natus quibusdam, in beatae consectetur omnis aliquid.";
 const quotes = [
   "Unlock the door to endless discovery",
   "Every click is a step closer to wisdom",
   "Tap into your potential and let curiosity lead",
   "Your journey to knowledge begins here",
   "Empower yourself with every question you ask",
+];
+const dataMock = [
+  { image: female1, description: fixText + "1" },
+  { image: female2, description: fixText + "2" },
+  { image: female3, description: fixText + "3" },
+  { image: female4, description: fixText + "4" },
+  { image: female5, description: fixText + "5" },
+  { image: male1, description: fixText + "6" },
+  { image: male2, description: fixText + "7" },
+  { image: male3, description: fixText + "8" },
+  { image: male4, description: fixText + "9" },
+  { image: male5, description: fixText + "10" },
+  { image: teacher, description: fixText + "11" },
+  { image: laufey, description: fixText + "12" },
+  { image: chjlaucute, description: fixText + "13" },
+  { image: cutevaichuong, description: fixText + "14" },
 ];
 
 const Learn = () => {
@@ -35,6 +61,31 @@ const Learn = () => {
   const [isChatVisible, setIsChatVisible] = useState(false); // New state for chat visibility
   const [quoteIndex, setQuoteIndex] = useState(0); // Track current quote index
   const [init, setInit] = useState(false);
+  const [currentImageIndex, setCurrentImageIndex] = useState(0);
+
+  // TODO: @VuDuc, you can start integrating from here
+  const [isHelpQuestion, setIsHelpQuestion] = useState(true); // TODO: We mock data and set it to true for now. By default it is false.
+
+  const handleHelpQuestion = () => {
+    // TODO: @VuDuc, this one is for help questions
+    setIsHelpQuestion(true);
+  };
+
+  const handleGeneralQuestion = () => {
+    // TODO: @VuDuc, this one is for any other questions
+    setIsHelpQuestion(false);
+  };
+  // Remember to reset the array containing the steps before jumping in to the next "help" question
+
+  const handleNext = () => {
+    setCurrentImageIndex((prevIndex) => (prevIndex + 1) % dataMock.length);
+  };
+
+  const handlePrevious = () => {
+    setCurrentImageIndex((prevIndex) =>
+      prevIndex === 0 ? dataMock.length - 1 : prevIndex - 1
+    );
+  };
 
   const handleMuteToggle = () => {
     if (vapi) {
@@ -139,14 +190,13 @@ const Learn = () => {
 
     return () => clearInterval(quoteInterval); // Clear interval on component unmount
   }, []);
-  
 
   return (
-    <div className="bg-gradient-to-b from-purple-900 to-indigo-900 min-h-screen flex">
+    <div className={styles.page_container}>
       <div
-        className={`${
-          isChatVisible ? "w-2/3" : "w-full"
-        } flex items-center justify-center mt-8 mb-8 transition-all duration-500`}
+        className={`${isChatVisible ? "w-2/3" : "w-full"} ${
+          styles.interactable_container
+        }`}
       >
         <div className="container fade-in fade-in-delay-1">
           <div
@@ -154,15 +204,48 @@ const Learn = () => {
               init ? "voice_mode_container" : "non_voice_mode_container"
             } main_section_container fade-in fade-in-delay-2`}
           >
-            <div className="flex flex-col items-center justify-center h-full w-full">
+            <div className={styles.main_content_wrapper}>
               {isVoiceMode ? (
-                <div className="bg-purple-500 rounded-[15px] h-full flex items-center justify-center fade-in fade-in-delay-3">
-                  <img
-                    src={female2}
-                    alt="AI Assistant Avatar"
-                    className="transition-transform h-full fade-in fade-in-delay-1"
-                  />
-                </div>
+                <>
+                  <div
+                    className={`${styles.image_container} fade-in fade-in-delay-3`}
+                  >
+                    <img
+                      src={dataMock[currentImageIndex].image}
+                      alt="AI Assistant Avatar"
+                      className="transition-transform h-full fade-in fade-in-delay-1"
+                    />
+                  </div>
+                  <div className={styles.generation_text}>
+                    {isHelpQuestion && (
+                      <div className={styles.navigationWrapper}>
+                        {/* Back button with SVG */}
+                        <button
+                          onClick={handlePrevious}
+                          className={`${styles.navButton} ${styles.backButton}`}
+                        >
+                          <img src={backIcon} alt="Back" />
+                        </button>
+
+                        <p>{dataMock[currentImageIndex].description}</p>
+
+                        {/* Next button with SVG */}
+                        <button
+                          onClick={handleNext}
+                          className={styles.navButton}
+                        >
+                          <img src={nextIcon} alt="Next" />
+                        </button>
+                      </div>
+                    )}
+
+                    {/* {dataMock[currentImageIndex].description} */}
+                  </div>
+                  {/* <div className={styles.navigationButtons}>
+                    <button onClick={handlePrevious}>Back</button>
+                    <button onClick={handleNext}>Next</button>
+                  </div> */}
+                </>
               ) : (
                 <>
                   <div className="h-full flex items-center justify-center fade-in fade-in-delay-2">
