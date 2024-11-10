@@ -165,7 +165,7 @@ button:focus-visible {
   height: 100%;
 }
 .non_voice_mode_container {
-  height: 80%;
+  height: 50%;
 }
 
 .main_section_container > * + * {

@@ -9,6 +9,7 @@ import male3 from "./assets/male3.png";
 import male4 from "./assets/male4.png";
 import male5 from "./assets/male5.png";
 import teacher from "./assets/teacher.png";
+import laufey from "./assets/laufey.gif";
 
 import { useState, useEffect } from "react";
 import NavigationBar from "./components/NavigationBar";
@@ -33,6 +34,7 @@ const Learn = () => {
   const [isMuted, setIsMuted] = useState(false);
   const [isChatVisible, setIsChatVisible] = useState(false); // New state for chat visibility
   const [quoteIndex, setQuoteIndex] = useState(0); // Track current quote index
+  const [init, setInit] = useState(false);
 
   const handleMuteToggle = () => {
     if (vapi) {
@@ -49,6 +51,7 @@ const Learn = () => {
     // vapi.start(assistantOptions); //from the website
     setIsVoiceMode(!isVoiceMode);
     setIsChatVisible(true); // Show chat section
+    setInit(true);
     vapi.start("4b6c564d-7931-4227-b2f3-cbafd3c263c1");
   };
 
@@ -147,7 +150,7 @@ const Learn = () => {
         <div className="container fade-in fade-in-delay-1">
           <div
             className={`${
-              isVoiceMode ? "voice_mode_container" : "non_voice_mode_container"
+              init ? "voice_mode_container" : "non_voice_mode_container"
             } main_section_container fade-in fade-in-delay-2`}
           >
             <div className="flex flex-col items-center justify-center h-full w-full">
