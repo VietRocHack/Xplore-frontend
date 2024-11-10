@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import CenterButton from "./CenterButton";
 import Mute from "./Mute";
 import NavItem from "./NavItem";
-import Play from "./Play";
 
 // eslint-disable-next-line react/prop-types
 const NavigationBar = ({
