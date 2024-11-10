@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import io from "socket.io-client";
 import.meta.env.VITE_SOCKET_URL;
 import ChatMessage from "../classes/ChatMessage";
@@ -15,6 +15,14 @@ export default function ChatBox({ messages, setMessages, vapi, connected }) {
   const [newMessage, setNewMessage] = useState(null);
   const [isNewMessage, setIsNewMessage] = useState(false);
   const [isNewMessageLoading, setIsNewMessageLoading] = useState(false);
+  const containerRef = useRef(null);
+
+  useEffect(() => {
+    if (containerRef.current) {
+      containerRef.current.scrollIntoView({ behavior: "smooth" });
+    }
+  }, [messages]);
+
   useEffect(() => {
     // Listen for 'newData' event from the backend
     socket.on("newData", async (data) => {
@@ -100,6 +108,7 @@ export default function ChatBox({ messages, setMessages, vapi, connected }) {
               text={message.textMessage}
             />
           ))}
+          <div ref={containerRef}></div>
         </div>
         {isNewMessage && (
           <ConfirmationBox
