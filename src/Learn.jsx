@@ -18,11 +18,11 @@ import { VAPI_KEY } from "./utils";
 import ChatBox from "./components/ChatBox";
 import CircleButton from "./components/CircleButton";
 const quotes = [
-  "Unlock the door to endless discovery.",
-  "Every click is a step closer to wisdom.",
-  "Tap into your potential and let curiosity lead.",
-  "Your journey to knowledge begins here.",
-  "Empower yourself with every question you ask.",
+  "Unlock the door to endless discovery",
+  "Every click is a step closer to wisdom",
+  "Tap into your potential and let curiosity lead",
+  "Your journey to knowledge begins here",
+  "Empower yourself with every question you ask",
 ];
 
 const Learn = () => {
@@ -139,6 +139,7 @@ const Learn = () => {
 
     return () => clearInterval(quoteInterval); // Clear interval on component unmount
   }, []);
+  
 
   return (
     <div className="bg-gradient-to-b from-purple-900 to-indigo-900 min-h-screen flex">
@@ -171,7 +172,7 @@ const Learn = () => {
                       endCall={endCall}
                     />
                   </div>
-                  <p className="text-blue-200 text-center mt-8 text-2xl opacity-75 fade-in-out">
+                  <p className="text-blue-200 text-center mt-8 text-2xl opacity-75 fade-in-out-5s aura_effect">
                     {quotes[quoteIndex]}
                   </p>
                 </>
