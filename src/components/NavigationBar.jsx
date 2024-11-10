@@ -11,6 +11,18 @@ const NavigationBar = ({
   connected,
   endCall,
 }) => {
+  const [isLoading, setIsLoading] = useState(false);
+
+  const handleStartCall = () => {
+    setIsLoading(true);
+    startCallInline();
+  };
+
+  // Once connected state updates to true, stop the loading indicator
+  if (connected && isLoading) {
+    setIsLoading(false);
+  }
+
   return (
     <nav className="flex justify-center w-full">
       <div className="bg-gray-900 rounded-3xl py-4 px-3 flex justify-around items-center w-full">
@@ -19,15 +31,13 @@ const NavigationBar = ({
           handleMuteToggle={handleMuteToggle}
           isMuted={isMuted}
         />
-        {/* <CenterButton
+        <CenterButton
           startCallInline={startCallInline}
           endCall={endCall}
           label="Call Xplore"
           isMuted={isMuted}
           connected={connected}
-        /> */}
-        
-        {connected ? <NavItem icon="stop" label="Stop" onClick={endCall} /> : <NavItem icon="play" label="Play" onClick={startCallInline} />}
+        />        
         <NavItem icon="next" label="Next" />
       </div>
     </nav>
